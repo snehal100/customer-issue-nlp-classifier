@@ -1,41 +1,151 @@
+# 📦 Customer Issue NLP Classifier
 
-# Logistics Customer Issue Classifier (NLP Task)
+An end-to-end Natural Language Processing (NLP) and Machine Learning project that analyzes customer reviews, categorizes issue types, and trains a classification model using TF-IDF and Logistic Regression.
 
-## Problem
-Automatically classify customer feedback into issue types (e.g. Delivery Delay, Package Condition Issue) for better routing in logistics support.
+---
 
-## Dataset Used
-- Customer Sentiment Dataset (Kaggle)
-- Link: https://www.kaggle.com/datasets/kundanbedmutha/customer-sentiment-dataset
-- 25,000 rows, but **only 15 unique review texts** repeated many times (avg length ~32 chars).
-- Key column: `review_text`
+## 🚀 Project Overview
 
-## Approach
-1. EDA → discovered extreme repetition (15 templates)
-2. Rule-based labeling → 5 categories + Other/General using keywords
-3. Text cleaning (lowercase, remove stopwords/punctuation)
-4. TF-IDF vectorization (bigrams)
-5. Logistic Regression with balanced class weights
+This project demonstrates a modular and production-style ML pipeline:
 
-## Results
-- Accuracy: 100.00%
-- Macro F1-score: 1.0000
-- Weighted F1-score: 1.0000
-- All classes perfectly classified on test set
+- Data exploration and visualization
+- Complaint analysis
+- Rule-based issue classification
+- Text preprocessing
+- Feature engineering using TF-IDF
+- Supervised classification with Logistic Regression
+- Model evaluation using confusion matrix and performance metrics
 
-## Limitations
-- Dataset is synthetic: only **15 unique short phrases** repeated thousands of times → model memorizes patterns, not learns general language.
-- Very short reviews (avg 32 chars) → limited context for NLP.
-- Perfect score is due to data repetition, not real-world robustness.
-- In actual logistics feedback, expect lower performance (70–85% F1) due to diversity, typos, sarcasm.
+The system is structured using separate modules for better scalability and maintainability.
 
-## What I would improve with more time
-- Use real, diverse review data (e.g. Amazon/Flipkart delivery reviews)
-- Text augmentation to create variation
-- Fine-tune DistilBERT or similar for better short-text handling
-- Add multilabel support if reviews have multiple issues
-- Deploy simple inference API
+---
 
-## Repository Structure
-- `issue_classifier.ipynb` — full notebook
-- Dataset: Download from Kaggle link above
+## 🏗 Project Architecture
+
+```
+customer-issue-nlp-classifier/
+│
+├── helperdata.py                  # Contains all processing & ML functions
+├── system.py                  # Main execution file
+├── Customer_Sentiment_csv.csv # Dataset
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## 🧠 Module Responsibilities
+
+### 🔹 helperdata.py
+Contains all reusable functions:
+- Sentiment visualization
+- Customer rating analysis
+- Complaint analysis
+- Issue type classification
+- Text preprocessing
+- Model training & evaluation
+
+### 🔹 system.py
+- Loads dataset
+- Calls functions from `helperdata.py`
+- Controls execution flow
+- Displays all visualizations
+
+---
+
+## ⚙️ Installation
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## ▶️ How To Run
+
+From project root folder:
+
+```bash
+python system.py
+```
+
+---
+
+## 📊 Output Graphs
+
+The system generates 5 key visualizations:
+
+1. Sentiment Distribution
+2. Customer Rating Distribution
+3. Review Length Distribution
+4. Issue Type Distribution
+5. Confusion Matrix
+
+---
+
+## 🔍 Workflow Explanation
+
+### 1️⃣ Data Loading
+- Reads customer review dataset
+- Checks missing values
+
+### 2️⃣ Exploratory Data Analysis
+- Sentiment distribution
+- Rating distribution
+- Complaint percentage
+- Review length histogram
+
+### 3️⃣ Issue Classification
+Rule-based categorization into:
+- Delivery Delay
+- Delivery Person Behavior
+- Package Condition Issue
+- Technical/Tracking Issue
+- Positive Feedback
+- Other/General
+
+### 4️⃣ Text Preprocessing
+- Lowercasing
+- Removing special characters
+- Stopword removal
+- Whitespace normalization
+
+### 5️⃣ Feature Engineering
+- TF-IDF vectorization
+- Unigrams + Bigrams
+- English stopword filtering
+
+### 6️⃣ Model Training
+- Stratified 80/20 train-test split
+- Logistic Regression classifier
+- Class weight balancing
+
+### 7️⃣ Model Evaluation
+- Accuracy score
+- Precision, Recall, F1-score
+- Confusion matrix heatmap
+
+---
+
+## 📈 Model Summary
+-----------------------------------------------------
+| Component           | Technique Used              |
+|---------------------|-----------------------------|
+| Text Cleaning       | Regex + Stopword Removal    |
+| Feature Extraction  | TF-IDF                      |
+| Algorithm           | Logistic Regression         |
+| Data Split          | Stratified 80/20            |
+| Evaluation          | Accuracy + Confusion Matrix |
+-----------------------------------------------------
+---
+
+## ⚠ Important Note
+
+If the dataset contains repeated or limited unique reviews, accuracy may appear artificially high.  
+This project focuses on demonstrating a complete machine learning pipeline structure.
+
+---
+
+This project is intended for educational and demonstration purposes.
